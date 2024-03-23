@@ -16,8 +16,14 @@ function App() {
     setTodo("");
   };
 
-  const handleEdit = () => {
-
+  const handleEdit = (e,id) => {
+    let t = todos.filter(i => i.id === id)
+    
+    setTodo(t[0].todo)
+    let newTodos = todos.filter(item=>{
+      return item.id!==id
+      });
+      setTodos (newTodos) 
   };
 
   const handleDelete = (e,id) => {
@@ -49,9 +55,10 @@ function App() {
 return (
   <>
     <Navbar />
-    <div className="container mx-auto">
+    
+    <div className="container mx-auto pb-5">
       {/* box */}
-      <div className="box bg-purple-300 p-5 rounded-xl min-h-[80vh]">
+      <div className="box bg-purple-300 p-5 rounded-xl min-h-[80dvh]">
         {/* addTodo */}
         <div className="addToDo my-5">
           <div className=" text-lg font-bold ">Add ToDo</div>
@@ -66,10 +73,10 @@ return (
 
               <div className={` ${item.isCompleted ? "line-through" : ""} text-xl font-medium flex items-center gap-16`}>
                 <input name={item.id} onChange={handleCheckbox} type="checkbox" value={item.isCompleted} className="w-6 h-6" />
-                {item.todo}
+                <div className="max-w-[65vw] flex-wrap break-word">{item.todo}</div>
               </div>
-              <div className="button flex gap-2">
-                <button onClick={handleEdit} className="bg-purple-800 hover:bg-purple-950 text-white py-2 px-3 rounded-lg text-sm">Edit</button>
+              <div className="button flex gap-2 ">
+                <button onClick={(e)=>handleEdit(e,item.id)} className="bg-purple-800 hover:bg-purple-950 text-white py-2 px-3 rounded-lg text-sm">Edit</button>
                 <button  onClick={(e)=>handleDelete(e,item.id)} className="bg-purple-800 hover:bg-purple-950 text-white py-2 px-3 rounded-lg mx-2 text-sm">Delete</button>
               </div>
             </div>
